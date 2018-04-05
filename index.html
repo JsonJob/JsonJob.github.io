@@ -265,6 +265,9 @@
                     table2_data.sort(function(a, b){
                         return a["time"] < b["time"] ? 1 : -1;
                     });
+                    if (table2_data.length > 100) {
+                        table2_data = table2_data.slice(0, 100);
+                    }
                     for (var i = 0; i < table2_data.length; i++) {
                         var dic = table2_data[i];
                         dic["index"] = (i + 1) + '';
