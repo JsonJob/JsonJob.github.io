@@ -385,6 +385,7 @@
      * Handles the sign in button press.
      */
     function toggleSignIn() {
+        console.log("begin login");
       if (firebase.auth().currentUser) {
           showData();
 
@@ -416,7 +417,6 @@
             return;
           }
           console.log(error);
-          showData();
         });
       }
     }
@@ -428,17 +428,32 @@
      */
     function initApp() {
 
+        firebase.auth().onAuthStateChanged(function(user) {
+            // [START_EXCLUDE silent]
+            show_loading();
+            // [END_EXCLUDE]
+            if (user) {
+                // User is signed in.
+                showData();
+                console.log("User is signed in");
+            } else {
+                console.log("time out");
+                hide_loading();
+            }
+            hide_loading();
+        });
+
       document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
-        setTimeout("check_login()", 1000)
+//        setTimeout("check_login()", 1000)
     }
 
-    function check_login() {
-        if (firebase.auth().currentUser) {
-            showData();
-        } else {
-            alert("please login in")
-        }
-    }
+//    function check_login() {
+//        if (firebase.auth().currentUser) {
+//            showData();
+//        } else {
+//            alert("please login in")
+//        }
+//    }
 
     function hide_loading(){
         //获取div节点对象，通过div的id
