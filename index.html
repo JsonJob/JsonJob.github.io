@@ -200,7 +200,6 @@
             {
                 firebase.database().ref('/users').once('value').then(function(snapshot) {
 
-                    hide_loading();
                     var table1_data = [];
                     var table1_headers = ["#", "账户", "余款"];
                     var data = snapshot.val();
@@ -281,6 +280,7 @@
 
                     create_h(document.createElement("h6"), "交易记录");
                     createTable(table2_headers, table2_data);
+                    hide_loading();
                 });
             } else {
                 hide_loading();
@@ -461,7 +461,6 @@
                 console.log("time out");
                 hide_loading();
             }
-            hide_loading();
         });
 
       document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
