@@ -224,6 +224,10 @@
 
                         for (var tran_key in transactions) {
                             var tran = transactions[tran_key];
+                            // 过滤掉没有记录日期的
+                            if (!tran["happenedAt"]) {
+                                continue;
+                            }
                             var dic1 = new Array();
                             dic1["index"] = index1 + '';
                             dic1["email"] = user["email"];
@@ -251,16 +255,15 @@
                     createTable(table1_headers, table1_data);
                     creat_br();
 
+//                    for (dic in table2_data) {
+//                        if (!isDate(dic["time"])) {
+//                            console.log("--------");
+//                            table2_data.pop(dic);
+//                        }
+//                    }
 
                     // 数组排序
                     table2_data.sort(function(a, b){
-//                        console.log(a["time"])
-                        if (a["time"] == "Invalid Date") {
-                            return 1;
-                        }
-                        if (b["time"] == "Invalid Date") {
-                            return 0;
-                        }
                         return a["time"] < b["time"] ? 1 : -1;
                     });
                     for (var i = 0; i < table2_data.length; i++) {
@@ -286,6 +289,24 @@
 
             // ...
         });
+    }
+
+    function isDate(date){
+        if ( Object.prototype.toString.call(date) === "[object Date]" ) {
+            // it is a date
+            if ( isNaN( d.getTime() ) ) {  // d.valueOf() could also work
+                // date is not valid
+                return false;
+            }
+            else {
+                // date is valid
+                return true;
+            }
+        }
+        else {
+            // not a date
+            return false;
+        }
     }
 
     function create_h(h, text) {
